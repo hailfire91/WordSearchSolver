@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class WordSearchSolver {
@@ -17,10 +18,22 @@ public class WordSearchSolver {
                 "L B J B C B B L E U B I U R F" +
                 "L N H S F H T K R K G H Y A M" +
                 "O J H D N Q A J S Q P L R M U";
+        WordSearchValidator wordSearchValidator = new WordSearchValidator();
         WordsearchConverter wordsearchConverter = new WordsearchConverter();
+        WordSearchSearcher wordSearchSearcher = new WordSearchSearcher(wordSearchValidator);
         List<String> wordSearchStrings = wordsearchConverter.processWordSearch(wordsearch);
+        List<String> foundWords = new ArrayList<>();
+        for (String wordString: wordSearchStrings) {
+            StringBuilder stringBuilder = new StringBuilder();
+            //check strings for all possible words 4 letters or longer
+            foundWords.addAll(wordSearchSearcher.findWordsInString(wordString));
 
-        System.out.println(wordSearchStrings);
+            //then check the reverse string
+            stringBuilder.append(wordString);
+            String reverseWordString = stringBuilder.reverse().toString();
+            foundWords.addAll(wordSearchSearcher.findWordsInString(reverseWordString));
 
+        }
+        System.out.println(foundWords);
     }
 }
