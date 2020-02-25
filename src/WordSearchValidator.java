@@ -22,6 +22,7 @@ public class WordSearchValidator {
                 //add each word into the hashmap and add all valid substrings of the word in so we can detect a partial match.
                 String wordToAdd = scanner.next();
                 wordToAdd = wordToAdd.toUpperCase();
+                wordToAdd = wordToAdd.replaceAll("(\\r|\\n)", "");
                 wordMap.put(wordToAdd, WordSearchValidatorState.CompleteWord);
                 for(int i = wordToAdd.length() - 1; i > 0; i--) {
                     String substring = wordToAdd.substring(0, i);
